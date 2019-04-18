@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <EditText
+            android:id="@+id/itemName"
+            android:text=""
+            android:layout_width="match_parent"
+            android:hint="Item Name"
+
+            android:layout_height="wrap_content"/>
+
+    <!--<EditText-->
+            <!--android:id="@+id/itemType"-->
+            <!--android:hint="Item Type"-->
+            <!--android:entries="@array/cateName"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+    <Spinner
+            android:id="@+id/itemType"
+            android:hint="Item Type"
+            android:entries="@array/cateName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <EditText
+            android:id="@+id/itemPrice"
+            android:hint="Item Price"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <EditText
+            android:id="@+id/itemDesc"
+            android:hint="Item Description"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

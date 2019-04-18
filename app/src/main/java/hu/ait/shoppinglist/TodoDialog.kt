@@ -57,12 +57,12 @@ class TodoDialog : DialogFragment(), AdapterView.OnItemSelectedListener {
             R.layout.activity_todo_dialog, null
         )
 
-        val fruitsAdapter =
+        val myAdapter =
             ArrayAdapter.createFromResource(context, R.array.cateName, android.R.layout.
                 simple_spinner_item
         )
 
-            fruitsAdapter.setDropDownViewResource(
+        myAdapter.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item
             )
             //itemType.adapter = fruitsAdapter
@@ -75,7 +75,7 @@ class TodoDialog : DialogFragment(), AdapterView.OnItemSelectedListener {
         etItemPrice = rootView.itemPrice
         etItemDesc = rootView.itemDesc
 
-        etItemType.adapter = fruitsAdapter
+        etItemType.adapter = myAdapter
 
 
         builder.setView(rootView)

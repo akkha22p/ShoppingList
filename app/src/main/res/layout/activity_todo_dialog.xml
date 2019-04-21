@@ -12,13 +12,6 @@
 
             android:layout_height="wrap_content"/>
 
-    <!--<EditText-->
-            <!--android:id="@+id/itemType"-->
-            <!--android:hint="Item Type"-->
-            <!--android:entries="@array/cateName"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
-
     <Spinner
             android:id="@+id/itemType"
             android:hint="Item Type"

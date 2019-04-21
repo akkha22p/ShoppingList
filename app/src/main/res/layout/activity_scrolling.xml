@@ -5,37 +5,46 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:theme="@style/scrollingActivityTheme"
         tools:context=".ScrollingActivity">
 
     <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:fitsSystemWindows="true"
-            android:layout_height="@dimen/app_bar_height"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
-                android:fitsSystemWindows="true"
-                android:layout_width="match_parent"
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                app:title="My Todo List"
+                app:titleTextColor="#ffffff"
                 android:layout_height="match_parent"
-                app:toolbarId="@+id/toolbar"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:contentScrim="?attr/colorPrimary">
+                android:layout_width="match_parent"/>
 
-            <com.flaviofaria.kenburnsview.KenBurnsView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/todo"/>
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+                <!--android:id="@+id/toolbar_layout"-->
+                <!--android:fitsSystemWindows="true"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:toolbarId="@+id/toolbar"-->
+                <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+                <!--app:contentScrim="?attr/colorPrimary">-->
 
-            <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_width="match_parent"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            <!--&lt;!&ndash;<com.flaviofaria.kenburnsview.KenBurnsView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="62dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/todo"/>&ndash;&gt;-->
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+            <!--<android.support.v7.widget.Toolbar-->
+                    <!--android:id="@+id/toolbar"-->
+                    <!--app:title="My Todo List"-->
+                    <!--app:titleTextColor="#ffffff"-->
+                    <!--android:layout_height="?attr/actionBarSize"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--app:layout_collapseMode="pin"-->
+                    <!--app:popupTheme="@style/AppTheme.PopupOverlay"/>-->
+
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -45,14 +54,5 @@
             android:scrollbars="vertical"
             android:padding="20dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="@dimen/fab_margin"-->
-            <!--app:layout_anchor="@id/app_bar"-->
-            <!--app:layout_anchorGravity="bottom|end"-->
-            <!--app:srcCompat="@android:drawable/ic_dialog_email"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import hu.ait.shoppinglist.R
 import hu.ait.shoppinglist.ScrollingActivity
 import hu.ait.shoppinglist.data.AppDatabase
@@ -47,6 +48,7 @@ class itemAdapter : RecyclerView.Adapter<itemAdapter.ViewHolder>, itemTouchHelpe
         viewHolder.tvName.text = item.createName
         viewHolder.tvCategory.text = item.createCate
         viewHolder.tvPrice.text = item.createPrice
+        viewHolder.tvDetail.text = item.createDesc
         viewHolder.cbDone.isChecked = item.done
 
         if(viewHolder.tvCategory.text == "Drink"){
@@ -74,6 +76,17 @@ class itemAdapter : RecyclerView.Adapter<itemAdapter.ViewHolder>, itemTouchHelpe
         viewHolder.btnEdit.setOnClickListener {
             (context as ScrollingActivity).showEditTodoDialog(item,
                 viewHolder.adapterPosition)
+        }
+
+        viewHolder.btnDetail.setOnClickListener {
+            if(viewHolder.btnDetail.text == "Show Detail") {
+                viewHolder.loDetail.visibility = View.VISIBLE
+                viewHolder.btnDetail.text = "HIDE"
+            }
+            else if(viewHolder.btnDetail.text == "HIDE"){
+                viewHolder.loDetail.visibility = View.GONE
+                viewHolder.btnDetail.text = "Show Detail"
+            }
         }
     }
 
@@ -124,9 +137,12 @@ class itemAdapter : RecyclerView.Adapter<itemAdapter.ViewHolder>, itemTouchHelpe
         var tvName = itemView.tvName
         var tvCategory = itemView.tvCategory
         var tvPrice = itemView.tvPrice
+        var loDetail = itemView.loDetail
+        var tvDetail = itemView.tvDetail
         var cbDone = itemView.cbDone
         var btnDelete = itemView.btnDelete
         var btnEdit = itemView.btnEdit
+        var btnDetail = itemView.btnDetail
         var icon = itemView.myIcon
     }
 

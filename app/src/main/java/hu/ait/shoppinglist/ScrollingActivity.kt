@@ -22,6 +22,7 @@ import hu.ait.shoppinglist.data.Item
 import hu.ait.shoppinglist.touch.itemReyclerTouchCallback
 
 import kotlinx.android.synthetic.main.activity_scrolling.*
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import java.util.*
 
 class ScrollingActivity : AppCompatActivity(), TodoDialog.TodoHandler {
@@ -41,26 +42,19 @@ class ScrollingActivity : AppCompatActivity(), TodoDialog.TodoHandler {
 
         setSupportActionBar(toolbar)
 
-//        fab.setOnClickListener { view ->
-//
-//            showAddTodoDialog()
-//
-//        }
+        if (!wasOpenedEarlier()) {
 
+            MaterialTapTargetPrompt.Builder(this)
 
-//        if (!wasOpenedEarlier()) {
+                .setTarget(R.id.createNewItem)
 
-//            MaterialTapTargetPrompt.Builder(this)
+                .setPrimaryText("New TODO")
 
-//                .setTarget(R.id.fab)
+                .setSecondaryText("Click here to create new todo items")
 
-//                .setPrimaryText("New TODO")
+                .show()
 
-//                .setSecondaryText("Click here to create new todo items")
-
-//                .show()
-
-//        }
+        }
 
         saveFirstOpenInfo()
 
@@ -85,16 +79,12 @@ class ScrollingActivity : AppCompatActivity(), TodoDialog.TodoHandler {
         Thread {
             var todoList = AppDatabase.getInstance(this@ScrollingActivity).itemDao().getAllItem()
 
+            // Update UI
             runOnUiThread {
-                // Update UI
 
                 todoAdapter = itemAdapter(this, todoList)
 
                 recyclerTodo.layoutManager = LinearLayoutManager(this)
-
-                //recyclerTodo.layoutManager = GridLayoutManager(this, 2)
-                //recyclerTodo.layoutManager = StaggeredGridLayoutManager(2,
-                //    StaggeredGridLayoutManager.VERTICAL)
 
                 recyclerTodo.adapter = todoAdapter
 
@@ -142,18 +132,6 @@ class ScrollingActivity : AppCompatActivity(), TodoDialog.TodoHandler {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-//        return when (item.itemId) {
-//            R.id.createNewItem -> true
-//            else -> super.onOptionsItemSelected(item)
-//        }
-
-//        var intentDetails = Intent()
-//        intentDetails.setClass(this@MainActivity, Summary::class.java)
-//
-//        intentDetails.putExtra(NumExpense, expense)
-//        intentDetails.putExtra(NumIncome, income)
-//        intentDetails.putExtra(NumBalance, income - expense)
-
         if (item?.itemId == R.id.createNewItem) {
             showAddTodoDialog()
         }
@@ -168,8 +146,6 @@ class ScrollingActivity : AppCompatActivity(), TodoDialog.TodoHandler {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 
     override fun itemCreated(item: Item) {
         Thread {

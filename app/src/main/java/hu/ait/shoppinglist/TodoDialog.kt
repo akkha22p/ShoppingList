@@ -2,7 +2,10 @@ package hu.ait.shoppinglist
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -48,35 +51,32 @@ class TodoDialog : DialogFragment(), AdapterView.OnItemSelectedListener {
     private lateinit var etItemDesc: EditText
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
 
         builder.setTitle("New todo")
 
+
         val rootView = requireActivity().layoutInflater.inflate(
             R.layout.activity_todo_dialog, null
         )
 
-        val myAdapter =
+        val CategoryAdapter =
             ArrayAdapter.createFromResource(context, R.array.cateName, android.R.layout.
                 simple_spinner_item
         )
 
-        myAdapter.setDropDownViewResource(
+        CategoryAdapter.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item
             )
-            //itemType.adapter = fruitsAdapter
 
-        //itemType.onItemSelectedListener = this
-
-        //etTodoDate = rootView.findViewById(R.id.etTodoText)
         etItemName = rootView.itemName
         etItemType = rootView.itemType
         etItemPrice = rootView.itemPrice
         etItemDesc = rootView.itemDesc
 
-        etItemType.adapter = myAdapter
-
+        etItemType.adapter = CategoryAdapter
 
         builder.setView(rootView)
 
@@ -90,35 +90,52 @@ class TodoDialog : DialogFragment(), AdapterView.OnItemSelectedListener {
                 ScrollingActivity.KEY_ITEM_TO_EDIT
             ) as Item
 
-            etItemName.setText(item.createName)
-            etItemPrice.setText(item.createPrice)
-            etItemDesc.setText(item.createDesc)
-
-            if(item.createCate == "Food"){
-                etItemType.setSelection(0)
-            }
-            else if(item.createCate == "Drink"){
-                etItemType.setSelection(1)
-            }
-            else if(item.createCate == "Cosmetics"){
-                etItemType.setSelection(2)
-            }
-            else if(item.createCate == "Electronics"){
-                etItemType.setSelection(3)
-            }
+            setEditDialog(item)
 
             builder.setTitle("Edit todo")
-        }
 
-        builder.setPositiveButton("ADD ITEM") {
-                dialog, witch -> // empty
+            builder.setPositiveButton("UPDATE") { dialog, witch ->
+                // empty
+            }
         }
-
+        else {
+            builder.setPositiveButton("ADD ITEM") { dialog, witch ->
+                // empty
+            }
+        }
         return builder.create()
+    }
+
+    private fun setEditDialog(item: Item){
+
+        etItemName.setText(item.createName)
+        etItemPrice.setText(item.createPrice)
+        etItemDesc.setText(item.createDesc)
+
+        setCategoryInSpinner(item)
+
+    }
+
+    private fun setCategoryInSpinner(item: Item){
+
+        if(item.createCate == "Food"){
+            etItemType.setSelection(0)
+        }
+        else if(item.createCate == "Drink"){
+            etItemType.setSelection(1)
+        }
+        else if(item.createCate == "Cosmetics"){
+            etItemType.setSelection(2)
+        }
+        else if(item.createCate == "Electronics"){
+            etItemType.setSelection(3)
+        }
+
     }
 
 
     override fun onResume() {
+
         super.onResume()
 
         val positiveButton = (dialog as AlertDialog).getButton(Dialog.BUTTON_POSITIVE)
@@ -128,10 +145,11 @@ class TodoDialog : DialogFragment(), AdapterView.OnItemSelectedListener {
                 // IF EDIT MODE
                 if (arguments != null && arguments.containsKey(ScrollingActivity.KEY_ITEM_TO_EDIT)) {
                     handleItemEdit()
-                } else {
+                }
+                //IF CREATE NODE
+                else {
                     handleItemCreate()
                 }
-
                 dialog.dismiss()
             }
             else{
@@ -143,32 +161,26 @@ class TodoDialog : DialogFragment(), AdapterView.OnItemSelectedListener {
     private fun handleItemCreate() {
 
         todoHandler.itemCreated(
-
             Item(null, etItemName.text.toString(), etItemType.selectedItem.toString(), etItemPrice.text.toString(),
-
                 etItemDesc.text.toString(), false))
 
         Item(
-
             null,
-
             Date(System.currentTimeMillis()).toString(),
-
             etItemType.selectedItem.toString(),
-
             etItemPrice.text.toString(),
-
             etItemDesc.text.toString(),
-
             false
 
         )
     }
 
     private fun handleItemEdit() {
+
         val todoToEdit = arguments?.getSerializable(
             ScrollingActivity.KEY_ITEM_TO_EDIT
         ) as Item
+
         todoToEdit.createName = etItemName.text.toString()
         todoToEdit.createCate = etItemType.selectedItem.toString()
         todoToEdit.createPrice = etItemPrice.text.toString()

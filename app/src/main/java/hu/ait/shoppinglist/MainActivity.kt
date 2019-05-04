@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         saveOpenTime()
     }
 
-
+    //Current open time
     fun saveOpenTime() {
         var sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         var editor = sharedPref.edit()
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    //Get the first time the app was opened
     fun getLastTime() : String{
         var sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         var lastTime = sharedPref.getString(KEY_LAST, "It is the FIRST time you use it")
